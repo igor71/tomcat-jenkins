@@ -30,7 +30,7 @@ pipeline {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
                     image_id="$(docker images -q igor71/jenkins-tomcat:0.1)"
-                    if [[ "$(docker images -q igor71/jenkins-tomcat 2> /dev/null)" == "$image_id" ]]; then
+                    if [[ "$(docker images -q igor71/jenkins-tomcat:0.1 2> /dev/null)" == "$image_id" ]]; then
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
                        echo "TomCat port not listenning inside docker container, check the Dockerfile file!!!"
