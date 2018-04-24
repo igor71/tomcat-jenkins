@@ -1,12 +1,17 @@
 pipeline {
   agent {label 'jenkins-tomcat'}
     stages {
-        stage('Build') {
+        stage('Build Basic SSH Image') {
+            steps {
+              sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'
+            }
+        }
+        stage('Build Jenkins-TomCat Image') {
             steps {
                 sh 'docker build -t igor71/jenkins-tomcat:0.1 .'
             }
         }
-        stage('Push the image to DockerHub') {
+        stage('Push Jenkins-TomCat Image To DockerHub') {
         /* Finally, push the image considering two important things:
          * First, the image name should contain userID from the existing DockerHub Repo
          * Second, credentialsId is username/password set containing the DockerHubID and the password for it,
