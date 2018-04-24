@@ -2,6 +2,8 @@
 
 FROM yi/docker-ssh:0.0
 
+LABEL MAINTAINER="Igor Rabkin<igor.rabkin@xiaoyi.com>"
+
 #################################################
 #  Update repositories -- we will need them all #
 #  the time, also when container is run         #
