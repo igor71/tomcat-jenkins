@@ -6,16 +6,17 @@ pipeline {
               sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'
             }
         }
-		stage('Test Basic SSH Image') {
-            agent { docker 'yi/docker-ssh:0.0' } 
+		stage('Test Basic SSH Image For Mapped Ports') { 
             steps {
-                echo 'Hello, SSH_Docker'
                 sh '''#!/bin/bash -xe
-                    netstat -aln | grep ":22" 
-                       if [ "$?" != "0" ]; then
-                          echo "SSH port not listenning inside docker container, check docker file!!!"
-                          exit -1
-                       fi
+				    echo 'Hello, SSH_Docker'
+                    image_id="$(docker images -q yi/docker-ssh:0.0)"
+                    if [[ "$(docker images -q yi/docker-ssh:0.0 2> /dev/null)" == "$image_id" ]]; then
+                       docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
+                    else
+                       echo "SSH port not listenning inside docker container, check the Docker.SSH file!!!"
+                       exit -1
+                    fi 
                    ''' 
             }
         }
