@@ -1,5 +1,5 @@
 pipeline {
-  agent {label 'alpine-jenkins'}
+  agent {label 'jenkins-tomcat'}
     stages {
         stage('Build') {
             steps {
