@@ -1,0 +1,109 @@
+# Base Linux Ubuntu Image with SSH Daemon
+
+FROM ubuntu:16.04
+
+#################################################
+#  Update repositories -- we will need them all #
+#  the time, also when container is run         #
+#################################################
+
+ARG DEBIAN_FRONTEND=noninteractive 
+RUN apt-get update
+
+
+#################################################
+#          Set Time Zone Asia/Jerusalem         #
+################################################# 
+
+ENV TZ=Asia/Jerusalem
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
+################################################
+#     Basic desktop environment                #
+################################################
+
+# Locale, language
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+locale-gen
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
+
+#################################################
+#     Very basic installations                  #
+#################################################
+
+RUN apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+	  man \
+    tree \
+    htop \
+    vim \
+	  nano \
+	  tzdata \
+	  pv \
+	  iputils-ping \
+    net-tools \
+	  screen \
+	  sudo \
+	  mc && \
+    rm -rf /var/lib/apt/lists/*
+
+	
+#################################################
+# PID 1 - signal forwarding and zombie fighting #
+#################################################
+
+# Add Tini
+ARG TINI_VERSION=v0.16.1
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+ 
+##############################################################
+# Upgrade packages on image & Installing and Configuring SSH #
+##############################################################
+
+RUN apt-get -q update &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openssh-server &&\
+    rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin 
+	
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+RUN mkdir /var/run/sshd 
+
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile	
+
+
+########################################
+#    Set jenkins user to the image     #
+########################################
+
+RUN useradd -m -d /home/jenkins -s /bin/bash jenkins &&\
+    echo "jenkins:jenkins" | chpasswd 
+		
+# Add the users to sudoers group
+RUN echo "jenkins  ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers
+      
+# Set full permission for jenkins folder
+RUN chmod -R 777 /home/jenkins
+
+#####################
+# Standard SSH Port #
+#####################
+
+EXPOSE 22
+
+
+#####################
+# Default command   #
+#####################
+
+ENTRYPOINT ["/tini", "--"]
+CMD ["/usr/sbin/sshd", "-D"]
+RUN ["/bin/bash"]
