@@ -14,7 +14,7 @@ pipeline {
                     if [[ "$(docker images -q yi/docker-ssh:0.0 2> /dev/null)" == "$image_id" ]]; then
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
-                       echo "SSH port not listenning inside docker container, check the Docker.SSH file!!!"
+                       echo "SSH port not listenning inside docker container, check the Dockerfile.SSH file!!!"
                        exit -1
                     fi 
                    ''' 
@@ -25,6 +25,18 @@ pipeline {
                 sh 'docker build -t igor71/jenkins-tomcat:0.1 .'
             }
         }
+	stage('Test Jenkins-TomCat Image For Mapped Ports') { 
+            steps {
+                sh '''#!/bin/bash -xe
+	            echo 'Hello, Jenkins_Docker'
+                    image_id="$(docker images -q igor71/jenkins-tomcat:0.1)"
+                    if [[ "$(docker images -q igor71/jenkins-tomcat 2> /dev/null)" == "$image_id" ]]; then
+                       docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
+                    else
+                       echo "TomCat port not listenning inside docker container, check the Dockerfile file!!!"
+                       exit -1
+                    fi 
+                   ''' 
         stage('Push Jenkins-TomCat Image To DockerHub') {
         /* Finally, push the image considering two important things:
          * First, the image name should contain userID from the existing DockerHub Repo
