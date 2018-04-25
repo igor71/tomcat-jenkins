@@ -4,11 +4,11 @@ pipeline {
         stage('Build Basic SSH Image') {
             steps {
 	          sh '''
-		     image_id="$(docker images -q igor71/jenkins-tomcat:0.1)"
-                       if [[ "$(docker images -q igor71/jenkins-tomcat:0.1 2> /dev/null)" == "" ]]; then
+		         image_id="$(docker images -q yi/docker-ssh:0.0 2> /dev/null)"
+                       if [[ "$(docker images -q yi/docker-ssh:0.0 2> /dev/null)" == "" ]]; then
                           sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'
-		       fi
-		     '''
+		               fi
+		         '''
             }
         }
 		stage('Test Basic SSH Image For Mapped Ports') { 
@@ -20,7 +20,7 @@ pipeline {
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
                        echo "SSH port not listenning inside docker container, check the Dockerfile.SSH file!!!"
-                       # exit -1
+                       #exit -1
                     fi 
                    ''' 
             }
