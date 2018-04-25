@@ -20,7 +20,7 @@ pipeline {
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
                        echo "SSH port not listenning inside docker container, check the Dockerfile.SSH file!!!"
-                       exit -1
+                       # exit -1
                     fi 
                    ''' 
             }
