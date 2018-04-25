@@ -3,12 +3,7 @@ pipeline {
     stages {
         stage('Build Basic SSH Image') {
             steps {
-	          sh '''
-		         image_id="$(docker images -q yi/docker-ssh:0.0)"
-                       if [[ "$(docker images -q yi/docker-ssh:0.0 2> /dev/null)" == "" ]]; then
-                          sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'
-		               fi
-		         '''
+	            sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'    
             }
         }
 		stage('Test Basic SSH Image For Mapped Ports') { 
