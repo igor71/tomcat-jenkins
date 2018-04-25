@@ -3,7 +3,12 @@ pipeline {
     stages {
         stage('Build Basic SSH Image') {
             steps {
-              sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'
+	          sh '''
+		     image_id="$(docker images -q igor71/jenkins-tomcat:0.1)"
+                       if [[ "$(docker images -q igor71/jenkins-tomcat:0.1 2> /dev/null)" == "" ]]; then
+                          sh 'docker build -f Dockerfile.SSH -t yi/docker-ssh:0.0 .'
+		       fi
+		     '''
             }
         }
 		stage('Test Basic SSH Image For Mapped Ports') { 
