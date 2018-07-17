@@ -16,6 +16,6 @@ sudo visudo
 
 jenkins ALL=(ALL:ALL) NOPASSWD: ALL
 ```
-3. Setup and configure permanent access to /media/common
+3. Setup & configure permanent access to /media/common on Server
 
 
