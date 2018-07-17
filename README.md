@@ -1,4 +1,4 @@
-## Jenkins Running on TomCat Enabled Server
+## Jenkins Running On TomCat Enabled Server
 
 TomCat Based, SSH Enabled Jenkins Ubuntu Server
 
