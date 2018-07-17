@@ -66,12 +66,12 @@ sudo apt-get install -y --no-install-recommends \
 #  Configure Jenkins On TomCat      #
 #####################################
 
-   cp /home/jenkins/files/tomcat.service /etc/systemd/system/ 
-   cp /home/jenkins/files/tomcat-users.xml /opt/tomcat/conf/
-   cp /home/jenkins/files/context.xml /opt/tomcat/conf/   
-   cp /home/jenkins/files/server.xml /opt/tomcat/conf/ 
-   cp /home/jenkins/files/manager/META-INF/context.xml /opt/tomcat/webapps/manager/META-INF/ 
-   cp /home/jenkins/files/host-manager/META-INF/context.xml /opt/tomcat/webapps/host-manager/META-INF/
+   cp files/tomcat.service /etc/systemd/system/ 
+   cp files/tomcat-users.xml /opt/tomcat/conf/
+   cp files/context.xml /opt/tomcat/conf/   
+   cp files/server.xml /opt/tomcat/conf/ 
+   cp files/manager/META-INF/context.xml /opt/tomcat/webapps/manager/META-INF/ 
+   cp files/host-manager/META-INF/context.xml /opt/tomcat/webapps/host-manager/META-INF/
 
   chmod 644 /etc/systemd/system/tomcat.service 
   chmod 600 /opt/tomcat/conf/tomcat-users.xml 
