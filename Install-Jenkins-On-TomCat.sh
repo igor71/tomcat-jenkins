@@ -43,7 +43,6 @@ sudo apt-get install -y --no-install-recommends \
 # Install & Configure TomCat  #
 ###############################
 
-
    groupadd tomcat 
    useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat 
    cd /opt 
@@ -53,6 +52,7 @@ sudo apt-get install -y --no-install-recommends \
    rm apache-tomcat-8.5.32.tar.gz 
    chown -hR tomcat:tomcat tomcat 
    chmod +x /opt/tomcat/bin 
+
 
 ####################################
 # Setting Up Jenkis Home Directory #
