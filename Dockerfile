@@ -50,7 +50,7 @@ RUN \
   groupadd tomcat && \
   useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat && \
   cd /opt && \
-  curl -OSL http://apache.spd.co.il/tomcat/tomcat-8/v8.5.30/bin/apache-tomcat-8.5.30.tar.gz && \
+  curl -OSL http://apache.spd.co.il/tomcat/tomcat-8/v8.5.32/bin/apache-tomcat-8.5.32.tar.gz && \
   tar -xzf apache-tomcat-8.5.30.tar.gz && \
   mv apache-tomcat-8.5.30 tomcat && \
   rm apache-tomcat-8.5.30.tar.gz && \
