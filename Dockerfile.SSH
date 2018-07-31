@@ -41,18 +41,18 @@ ENV LANGUAGE en_US.UTF-8
 RUN apt-get install -y --no-install-recommends \
     curl \
     wget \
-	  man \
+    man \
     tree \
     htop \
     vim \
-	  nano \
-	  tzdata \
-	  pv \
-	  iputils-ping \
+    nano \
+    tzdata \
+    pv \
+    iputils-ping \
     net-tools \
-	  screen \
-	  sudo \
-	  mc && \
+    screen \
+    sudo \
+    mc && \
     rm -rf /var/lib/apt/lists/*
 
 	
