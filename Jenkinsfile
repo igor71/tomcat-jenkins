@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Build Jenkins-TomCat Image') {
             steps {
-                sh 'docker build -t igor71/jenkins-tomcat:0.1 .'
+                sh 'docker build -t igor71/jenkins-tomcat:0.0 .'
             }
         }
 		stage('Test Jenkins-TomCat Image For Mapped Ports') { 
