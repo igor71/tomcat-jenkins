@@ -21,6 +21,7 @@ RUN \
   apt-get install -y --no-install-recommends \
   sshpass \
   git \
+  vsftpd \
   python-software-properties \
   software-properties-common && \
   apt-get --purge remove openjdk* && \
