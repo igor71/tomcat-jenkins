@@ -22,15 +22,15 @@ pipeline {
         }
         stage('Build Jenkins-TomCat Image') {
             steps {
-                sh 'docker build -t igor71/jenkins-tomcat:0.0 .'
+                sh 'docker build -t igor71/jenkins-tomcat:${docker_tag} .'
             }
         }
 		stage('Test Jenkins-TomCat Image For Mapped Ports') { 
             steps {
                 sh '''#!/bin/bash -xe
 				    echo 'Hello, Jenkins_Docker'
-                    image_id="$(docker images -q igor71/jenkins-tomcat:0.0)"
-                    if [[ "$(docker images -q igor71/jenkins-tomcat:0.0 2> /dev/null)" == "$image_id" ]]; then
+                    image_id="$(docker images -q igor71/jenkins-tomcat:${docker_tag})"
+                    if [[ "$(docker images -q igor71/jenkins-tomcat:${docker_tag} 2> /dev/null)" == "$image_id" ]]; then
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
                        echo "TomCat port not listenning inside docker container, check the Dockerfile file!!!"
@@ -48,7 +48,7 @@ pipeline {
          * The key is the blank url parameter, which DockerRegistry translates into the appropriate DockerHub reference. */
             steps {
               withDockerRegistry([ credentialsId: "557b24c8-ef4d-4132-8de4-1890c68a3b82", url: "" ]) {
-              sh 'docker push igor71/jenkins-tomcat:0.0'
+              sh 'docker push igor71/jenkins-tomcat:${docker_tag}'
                }
             }
         }
