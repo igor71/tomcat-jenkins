@@ -64,6 +64,7 @@ COPY files/tomcat-users.xml /opt/tomcat/conf/
 COPY files/server.xml /opt/tomcat/conf/ 
 COPY files/manager/META-INF/context.xml /opt/tomcat/webapps/manager/META-INF/ 
 COPY files/host-manager/META-INF/context.xml /opt/tomcat/webapps/host-manager/META-INF/
+COPY files/branch_list.groovy /root/.jenkins/
 
 RUN \
   chmod 644 /etc/systemd/system/tomcat.service && \
