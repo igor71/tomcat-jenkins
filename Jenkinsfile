@@ -46,7 +46,7 @@ pipeline {
                         docker save igor71/jenkins-tomcat:${docker_tag} | pv -f | cat > $WORKSPACE/igor71-jenkins-tomcat-${docker_tag}.tar
 			
                         echo 'Remove Original Docker Image' 
-			CURRENT_ID=$(docker images | grep -E '^igor71/jenkins-tomcat.*${docker_tag}' | awk -e '{print $3}')
+			CURRENT_ID=$(docker images | grep -E '^igor71/jenkins-tomcat.*'${docker_tag}'' | awk -e '{print $3}')
 			docker rmi -f $CURRENT_ID
 			
                         echo 'Loading Docker Image'
