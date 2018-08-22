@@ -24,5 +24,5 @@ yi ALL=(ALL:ALL) NOPASSWD: ALL
 
 2. cd tomcat-jenkins
 
-3. /bin/bash Install-Jenkins-On-TomCat.sh
+3. sudo bash Install-Jenkins-On-TomCat.sh
 ```
