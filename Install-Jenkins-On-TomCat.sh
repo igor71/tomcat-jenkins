@@ -74,17 +74,30 @@ sudo apt-get install -y --no-install-recommends \
    cp /home/yi/tomcat-jenkins/files/host-manager/META-INF/context.xml /opt/tomcat/webapps/host-manager/META-INF/
    cp /home/yi/tomcat-jenkins/files/branch_list.groovy /var/lib/jenkins
 
-  chmod 644 /etc/systemd/system/tomcat.service 
-  chmod 600 /opt/tomcat/conf/tomcat-users.xml 
-  chown tomcat:tomcat /opt/tomcat/conf/tomcat-users.xml
-  chmod 600 /opt/tomcat/conf/context.xml 
-  chown tomcat:tomcat /opt/tomcat/conf/context.xml 
-  chmod 600 /opt/tomcat/conf/server.xml 
-  chown tomcat:tomcat /opt/tomcat/conf/server.xml 
-  chmod 640 /opt/tomcat/webapps/manager/META-INF/context.xml 
-  chown tomcat:tomcat /opt/tomcat/webapps/manager/META-INF/context.xml 
-  chmod 640 /opt/tomcat/webapps/host-manager/META-INF/context.xml 
-  chown tomcat:tomcat /opt/tomcat/webapps/host-manager/META-INF/context.xml 
+   chmod 644 /etc/systemd/system/tomcat.service 
+   chmod 600 /opt/tomcat/conf/tomcat-users.xml 
+   chown tomcat:tomcat /opt/tomcat/conf/tomcat-users.xml
+   chmod 600 /opt/tomcat/conf/context.xml 
+   chown tomcat:tomcat /opt/tomcat/conf/context.xml 
+   chmod 600 /opt/tomcat/conf/server.xml 
+   chown tomcat:tomcat /opt/tomcat/conf/server.xml 
+   chmod 640 /opt/tomcat/webapps/manager/META-INF/context.xml 
+   chown tomcat:tomcat /opt/tomcat/webapps/manager/META-INF/context.xml 
+   chmod 640 /opt/tomcat/webapps/host-manager/META-INF/context.xml 
+   chown tomcat:tomcat /opt/tomcat/webapps/host-manager/META-INF/context.xml
+   
+###################################
+# Installing & Configuring vsftpd #
+####################################
+
+   apt-get update && apt-get install -y --no-install-recommends vsftpd
+   cp /etc/vsftpd.conf /etc/vsftpd.conf.orig
+   mkdir -p /var/ftp/pub
+   chown nobody:nogroup /var/ftp/pub && \
+   apt-get install -f && \
+   apt-get clean && \
+   rm -rf /var/lib/apt/lists/* && \
+   rm -rf /tmp/* /var/tmp/*
 
 	 
 #################################
