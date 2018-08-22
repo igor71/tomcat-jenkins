@@ -59,7 +59,7 @@ sudo apt-get install -y --no-install-recommends \
 ####################################
 
    mkdir -p /var/lib/jenkins
-   chmod 775 var/lib/jenkins
+   chmod 775 /var/lib/jenkins
    chown -R tomcat:tomcat /var/lib/jenkins
    
 #####################################
