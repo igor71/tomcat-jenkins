@@ -98,6 +98,11 @@ sudo apt-get install -y --no-install-recommends \
    apt-get clean && \
    rm -rf /var/lib/apt/lists/* && \
    rm -rf /tmp/* /var/tmp/*
+   
+   echo "" | sudo tee -a /etc/fstab
+   echo "FTP Server For Jenkins" | sudo tee -a /etc/fstab
+   echo "" | sudo tee -a /etc/fstab
+   echo "//yifileserver/common/DOCKER_IMAGES/Tensorflow/ /var/ftp/pub cifs user=server,pass=123server123,vers=3.0,iocharset=utf8,file_mode=0777,dir_mode=0777,noperm 0 0" | sudo tee -a /etc/fstab
 
 	 
 #################################
