@@ -90,7 +90,7 @@ sudo apt-get install -y --no-install-recommends \
 # Installing & Configuring vsftpd #
 ####################################
 
-   apt-get update && apt-get install -y --no-install-recommends vsftpd
+   apt-get update && apt-get install -y vsftpd
    cp /etc/vsftpd.conf /etc/vsftpd.conf.orig
    mkdir -p /var/ftp/pub
    chown nobody:nogroup /var/ftp/pub && \
@@ -107,6 +107,7 @@ sudo apt-get install -y --no-install-recommends \
    
    sudo sed -i "s/anonymous_enable=NO/anonymous_enable=YES/" /etc/vsftpd.conf
    sudo sed -i "s/local_enable=YES/local_enable=NO/" /etc/vsftpd.conf
+   sudo sed -i "s/listen_ipv6=YES/listen_ipv6=NO/" /etc/vsftpd.conf
   
    sed -i '/anonymous_enable=YES/a # Stop prompting for a password on the command line '\\n'no_anon_password=YES' /etc/vsftpd.conf
    sed -i '/no_anon_password=YES/a #Point anonymous user to the ftp root directory '\\n'anon_root=/var/ftp/ '\\n'#Show the user and group as ftp:ftp, regardless of the owner' /etc/vsftpd.conf
