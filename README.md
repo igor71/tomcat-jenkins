@@ -10,15 +10,11 @@ Ubuntu LTS server with SSH & Samba Enabled, user accont - yi with root privilige
 
 1. Setup network on server to use static IP address
 
-2. Configure jenkins user root privileges with NO PASSWORD option:
+2. Configure yis user root privileges with NO PASSWORD option:
 ```
-sudo useradd -m -s /bin/bash jenkins
-
-sudo passwd jenkins
-
 sudo visudo
 
-jenkins ALL=(ALL:ALL) NOPASSWD: ALL
+yi ALL=(ALL:ALL) NOPASSWD: ALL
 ```
 3. Setup & configure permanent access to /media/common on the server
 
