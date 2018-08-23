@@ -6,7 +6,7 @@ Jenkins Home Directory on TomCat will be at: /var/lib/jenknins
 
 ### Pre Requirements
 
-Ubuntu LTS server with SSH & Samba Enabled, jenkins user accont with root priviliges
+Ubuntu LTS server with SSH & Samba Enabled, jenkins & yi user acconts with root priviliges
 
 1. Setup network on server to use static IP address
 
