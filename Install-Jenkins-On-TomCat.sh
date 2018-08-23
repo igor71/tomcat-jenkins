@@ -110,10 +110,10 @@ sudo apt-get install -y --no-install-recommends \
    mount -a
    echo ""
    
-   sudo sed -i "s/anonymous_enable=NO/anonymous_enable=YES/" /etc/vsftpd.conf
-   sudo sed -i "s/local_enable=YES/local_enable=NO/" /etc/vsftpd.conf
-   sudo sed -i "s/listen=NO/listen=YES/" /etc/vsftpd.conf
-   sudo sed -i "s/listen_ipv6=YES/listen_ipv6=NO/" /etc/vsftpd.conf
+   sed -i "s/anonymous_enable=NO/anonymous_enable=YES/" /etc/vsftpd.conf
+   sed -i "s/local_enable=YES/local_enable=NO/" /etc/vsftpd.conf
+   sed -i "s/listen=NO/listen=YES/" /etc/vsftpd.conf
+   sed -i "s/listen_ipv6=YES/listen_ipv6=NO/" /etc/vsftpd.conf
   
    sed -i '/anonymous_enable=YES/a # Stop prompting for a password on the command line '\\n'no_anon_password=YES' /etc/vsftpd.conf
    sed -i '/no_anon_password=YES/a # Point anonymous user to the ftp root directory '\\n'anon_root=/var/ftp/ '\\n'# Show the user and group as ftp:ftp, regardless of the owner' /etc/vsftpd.conf
