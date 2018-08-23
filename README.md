@@ -10,7 +10,7 @@ Ubuntu LTS server with SSH & Samba Enabled, jenkins & yi user acconts with root 
 
 1. Setup network on server to use static IP address
 
-2. Configure yis user root privileges with NO PASSWORD option:
+2. Configure jenkins user root privileges with NO PASSWORD option:
 ```
 sudo visudo
 
