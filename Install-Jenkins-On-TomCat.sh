@@ -119,6 +119,8 @@ sudo apt-get install -y --no-install-recommends \
    sed -i '/# Show the user and group as ftp:ftp, regardless of the owner/a hide_ids=YES '\\n'# Limit the range of ports that can be used for passive FTP' /etc/vsftpd.conf
    sed -i '/# Limit the range of ports that can be used for passive FTP/a pasv_min_port=40000 '\\n'pasv_max_port=50000' /etc/vsftpd.conf
 
+   echo " # Removing any trailing space and CR characters from /etc/vsftpd.conf file "
+   sed -i 's,\r,,;s, *$,,' /etc/vsftpd.conf
    systemctl restart vsftpd
    systemctl status vsftpd
 
