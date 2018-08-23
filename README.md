@@ -26,5 +26,7 @@ jenkins ALL=(ALL:ALL) NOPASSWD: ALL
 
 3. cd tomcat-jenkins
 
-4. sudo bash Install-Jenkins-On-TomCat.sh
+4. sudo bash Install-Jenkins-On-TomCat.sh -->> Installing Jenkin ON TomCat
+
+   sudo bash Install-Jenkins-App.sh -->> Installing Jenkin As Application
 ```
