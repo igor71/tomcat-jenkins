@@ -94,7 +94,7 @@ sudo apt-get install -y --no-install-recommends \
    dpkg --install libssl1.1_1.1.0f-3+deb9u2_amd64.deb
    curl -OSL http://us.archive.ubuntu.com/ubuntu/pool/main/v/vsftpd/vsftpd_3.0.3-11_amd64.deb
    dpkg --install vsftpd_3.0.3-11_amd64.deb
-   rm vsftpd-dbg_3.0.3-11_amd64.deb libssl1.1_1.1.0f-3+deb9u2_amd64.deb
+   rm vsftpd_3.0.3-11_amd64.deb libssl1.1_1.1.0f-3+deb9u2_amd64.deb
    cp /etc/vsftpd.conf /etc/vsftpd.conf.orig
    mkdir -p /var/ftp/pub
    chown nobody:nogroup /var/ftp/pub && \
