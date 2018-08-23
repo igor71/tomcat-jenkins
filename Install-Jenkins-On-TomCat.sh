@@ -2,7 +2,7 @@
 
 #################################################
 #  Update repositories -- we will need them all #
-#  the time, diring server run                  #
+#  the time, during server run                  #
 #################################################
 
 sudo apt-get update
