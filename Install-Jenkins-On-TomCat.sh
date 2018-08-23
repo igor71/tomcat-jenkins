@@ -108,6 +108,7 @@ sudo apt-get install -y --no-install-recommends \
    echo "" | sudo tee -a /etc/fstab
    echo "//yifileserver/common/DOCKER_IMAGES/Tensorflow/ /var/ftp/pub cifs user=server,pass=123server123,vers=3.0,iocharset=utf8,file_mode=0777,dir_mode=0777,noperm 0 0" | sudo tee -a /etc/fstab
    mount -a
+   echo ""
    
    sudo sed -i "s/anonymous_enable=NO/anonymous_enable=YES/" /etc/vsftpd.conf
    sudo sed -i "s/local_enable=YES/local_enable=NO/" /etc/vsftpd.conf
@@ -119,7 +120,7 @@ sudo apt-get install -y --no-install-recommends \
    sed -i '/# Show the user and group as ftp:ftp, regardless of the owner/a hide_ids=YES '\\n'# Limit the range of ports that can be used for passive FTP' /etc/vsftpd.conf
    sed -i '/# Limit the range of ports that can be used for passive FTP/a pasv_min_port=40000 '\\n'pasv_max_port=50000' /etc/vsftpd.conf
 
-   echo " # Removing any trailing space and CR characters from /etc/vsftpd.conf file "
+   echo " ### Removing any trailing space and CR characters from /etc/vsftpd.conf file ###"
    sed -i 's,\r,,;s, *$,,' /etc/vsftpd.conf
    systemctl restart vsftpd
    systemctl status vsftpd
