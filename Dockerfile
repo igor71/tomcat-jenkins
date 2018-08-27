@@ -116,7 +116,6 @@ RUN \
   chown -hR tomcat:tomcat tomcat && \
   chmod +x /opt/tomcat/bin 
  
-COPY files/start.sh / 
 COPY files/tomcat.service /etc/systemd/system/ 
 COPY files/tomcat-users.xml /opt/tomcat/conf/  
 COPY files/server.xml /opt/tomcat/conf/ 
