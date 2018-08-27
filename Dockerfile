@@ -158,7 +158,7 @@ RUN cp /etc/vsftpd.conf /etc/vsftpd.conf.orig && \
     chown nobody:nogroup /var/ftp && \
     mkdir -p /var/run/vsftpd/empty
      
-COPY init /
+COPY files/init /
 RUN chmod u+x /init
  
 VOLUME ["/var/ftp"]
