@@ -58,4 +58,17 @@ EOF
 # Remove any trailing space and CR characters from /etc/vsftpd.conf
 sed -i 's,\r,,;s, *$,,' /etc/vsftpd.conf
 
-/usr/sbin/vsftpd "$@"
+# Check the status of vsftpd service and start it if not running
+
+case "$(pidof vsftpd | wc -w)" in
+
+0)  echo "Restarting vsftpd:"
+    /usr/sbin/vsftpd "$@"
+    ;;
+1)  echo "vsftpd already running"
+    ;;
+esac
+
+# Starting TomCat Service
+
+/bin/bash /opt/tomcat/bin/catalina.sh run
