@@ -22,6 +22,9 @@ no_anon_password=YES
 hide_ids=YES
 # This directory is used as a secure chroot() jail at times vsftpd does not require filesystem access.
 secure_chroot_dir=/var/run/vsftpd/empty
+# When enabled, and vsftpd is started in "listen" mode, vsftpd will background the listener process. 
+# i.e. control will immediately be returned to the shell which launched vsftpd.
+background=YES
 # If enabled, users of the FTP server can be shown messages when they first enter a new directory
 dirmessage_enable=YES
 # If enabled, vsftpd will display directory listings with the time in your local time zone
