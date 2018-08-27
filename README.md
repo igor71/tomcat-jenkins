@@ -1,4 +1,4 @@
-# tomcat-jenkins
+# tomcat-jenkins-ftp
 TomCat Based, SSH Enabled Jenkins Docker Image
 
 Jenkins Home Directory on TomCat will be at : /root/.jenkins
