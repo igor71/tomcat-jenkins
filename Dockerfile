@@ -118,7 +118,8 @@ RUN \
  
 COPY files/tomcat.service /etc/systemd/system/ 
 COPY files/tomcat-users.xml /opt/tomcat/conf/  
-COPY files/server.xml /opt/tomcat/conf/ 
+COPY files/server.xml /opt/tomcat/conf/
+COPY files/context.xml /opt/tomcat/conf/ 
 COPY files/manager/META-INF/context.xml /opt/tomcat/webapps/manager/META-INF/ 
 COPY files/host-manager/META-INF/context.xml /opt/tomcat/webapps/host-manager/META-INF/
 COPY files/branch_list.groovy /root/.jenkins/
@@ -127,6 +128,8 @@ RUN \
   chmod 644 /etc/systemd/system/tomcat.service && \
   chmod 600 /opt/tomcat/conf/tomcat-users.xml && \
   chown tomcat:tomcat /opt/tomcat/conf/tomcat-users.xml && \
+  chmod 600 /opt/tomcat/conf/context.xml
+  chown tomcat:tomcat /opt/tomcat/conf/context.xml
   chmod 600 /opt/tomcat/conf/server.xml && \
   chown tomcat:tomcat /opt/tomcat/conf/server.xml && \
   chmod 640 /opt/tomcat/webapps/manager/META-INF/context.xml && \
