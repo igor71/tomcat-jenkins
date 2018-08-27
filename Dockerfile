@@ -128,8 +128,8 @@ RUN \
   chmod 644 /etc/systemd/system/tomcat.service && \
   chmod 600 /opt/tomcat/conf/tomcat-users.xml && \
   chown tomcat:tomcat /opt/tomcat/conf/tomcat-users.xml && \
-  chmod 600 /opt/tomcat/conf/context.xml
-  chown tomcat:tomcat /opt/tomcat/conf/context.xml
+  chmod 600 /opt/tomcat/conf/context.xml && \
+  chown tomcat:tomcat /opt/tomcat/conf/context.xml && \
   chmod 600 /opt/tomcat/conf/server.xml && \
   chown tomcat:tomcat /opt/tomcat/conf/server.xml && \
   chmod 640 /opt/tomcat/webapps/manager/META-INF/context.xml && \
