@@ -30,10 +30,12 @@ In order to check docker working as expected, perform following steps:
 
 `docker exec -it jenkins-ftp /bin/bash`
 
-`./start.sh`
+`./init`
 
 Check if ftp service running inside docker container:
 ```
+ export TERM=xterm
+ 
  netstat -aln | grep ":21"
  
  ```
