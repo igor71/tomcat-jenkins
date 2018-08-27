@@ -195,6 +195,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/issue && cat /etc/motd' \
 #      Configuration Sets For VSFTPD     #
 ##########################################
 
+ENTRYPOINT ["/init"]
 
 ##########################################
 # Enable TomCat Service On Docker Start #
