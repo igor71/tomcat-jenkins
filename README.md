@@ -30,7 +30,7 @@ In order to check docker working as expected, perform following steps:
 
 `docker exec -it jenkins-ftp /bin/bash`
 
-./start.sh
+`./start.sh`
 
 Check if ftp service running inside docker container:
 ```
