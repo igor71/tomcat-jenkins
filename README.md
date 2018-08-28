@@ -33,7 +33,7 @@ Where:
 * Clone the repository:
 `git clone --branch=jenkins-vsftpd --depth=1 https://github.com/igor71/tomcat-jenkins`
 * cd to tomcat-jenkin directory
-`cd tomcat-jenkin`
+`cd tomcat-jenkins`
 * Run following command: 
 `sudo docker-compose up -d`
 * (`-d` option will run docker container detached)
