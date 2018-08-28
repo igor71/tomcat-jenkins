@@ -27,13 +27,15 @@ In order to start ssh service in running container, perform following steps:
 ```
 docker exec -it jenkins /bin/bash
 
-./start.sh
+./services_check.sh
 
 Check if ssh service running inside docker container:
 
  netstat -aln | grep ":22"
  
  /etc/init.d/ssh status
+ 
+ lsof -i | grep sshd
  ```
 
 
