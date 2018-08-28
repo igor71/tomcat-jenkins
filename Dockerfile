@@ -58,6 +58,19 @@ RUN apt-get install -y --no-install-recommends \
     apt-get install -f && \
     rm -rf /tmp/* /var/tmp/* && \
     rm -rf /var/lib/apt/lists/*
+    
+    
+##################################
+# Installing and Configuring SSH #
+##################################
+
+RUN apt-get -q update &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openssh-server &&\
+    rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin 
+	
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+RUN mkdir /var/run/sshd 
 
 
 ########################################
@@ -166,7 +179,7 @@ VOLUME ["/var/ftp"]
 #  Expose FTP & TomCat Ports  #
 ###############################
 
-EXPOSE 20-21
+EXPOSE 20-22
 EXPOSE 65500-65515
 EXPOSE 8080
 
@@ -175,22 +188,27 @@ EXPOSE 8080
 # Add Welcome Message With Instructions #
 #########################################
 
+#########################################
+# Add Welcome Message With Instructions #
+#########################################
+
+
 RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/issue && cat /etc/motd' \
 	>> /etc/bash.bashrc \
 	; echo "\
 ||||||||||||||||||||||||||||||||||||||||||||||||||\n\
 |                                                |\n\
 | Ubuntu Based Docker Container                  |\n\
-| Running JENKINS & VFSTPD Services With         |\n\
-| Jenkins User Account Enabled                   |\n\
+| Running JENKINS,VFSTPD & SSHD Services         |\n\
+| With Jenkins User Account Enabled              |\n\
 |                                                |\n\
 ||||||||||||||||||||||||||||||||||||||||||||||||||\n\
 \n "\
 	> /etc/motd
 	
 
-##########################################################
-#      Configure And StartUp VSFTPD & TomCat Services    #
-##########################################################
+###############################################################
+#      Configure And StartUp VSFTPD, SSH & TomCat Services    #
+###############################################################
 
 ENTRYPOINT ["/init"]
