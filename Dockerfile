@@ -160,7 +160,9 @@ RUN cp /etc/vsftpd.conf /etc/vsftpd.conf.orig && \
      
 COPY files/init /
 RUN chmod u+x /init
- 
+COPY files/services_check.sh /
+RUN chmod u+x /services_check.sh
+
 VOLUME ["/var/ftp"]
 
  
