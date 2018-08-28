@@ -5,7 +5,7 @@ Jenkins Home Directory on TomCat will be at : `/root/.jenkins`
 
 Run the docker image with following command:
 ```
-docker run -d --name=jenkins -p 37000:22 -p 8080:8080 -v /media:/media -v /var/run/docker.sock:/var/run/docker.sock yi/docker-jenkins:x.x
+docker run -d --name=jenkins-ssh -p 37000:22 -p 8080:8080 -v /media:/media -v /var/run/docker.sock:/var/run/docker.sock yi/docker-jenkins:x.x
 ```
 Where:
 `-d`- >> run docker image detached, othervise use -it
@@ -25,7 +25,7 @@ Where:
 Note, ssh service will be in stop state when you'll run docker container.
 In order to start ssh service in running container, perform following steps:
 ```
-docker exec -it jenkins /bin/bash
+docker exec -it jenkins-ssh /bin/bash
 
 ./services_check.sh
 
