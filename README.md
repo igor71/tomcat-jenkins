@@ -22,8 +22,19 @@ Where:
 
 `yi/docker-jenkins:x.x` >> docker image name & tag
 
-Note, ssh service will be in stop state when you'll run docker container.
-In order to start ssh service in running container, perform following steps:
+It is posible to create & run docker using yml file:
+
+* Make sure docker-compose is installed:
+`sudo pip install docker-compose`
+* Clone the repository:
+`git clone --branch=master --depth=1 https://github.com/igor71/tomcat-jenkins`
+* cd to tomcat-jenkin directory
+`cd tomcat-jenkins`
+* Run following command: 
+`sudo docker-compose up -d`
+* (`-d` option will run docker container detached)
+
+In order to check docker working as expected, perform following steps:
 ```
 docker exec -it jenkins-ssh /bin/bash
 
