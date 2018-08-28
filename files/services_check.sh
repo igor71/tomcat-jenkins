@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Check the status of sshd service and start it if not running
+
+case "$(pidof sshd | wc -w)" in
+
+0)  echo "RESTARTING SSHD SERVICE:"
+    /etc/init.d/ssh start
+    ;;
+*)  echo "SSHD SERVICE RUNNING"
+    ;;
+esac
+
 # Check the status of vsftpd service and start it if not running
 
 case "$(pidof vsftpd | wc -w)" in
