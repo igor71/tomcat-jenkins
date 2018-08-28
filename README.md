@@ -31,7 +31,7 @@ Where:
 * Make sure docker-compose is installed:
 `sudo pip install docker-compose`
 * Clone the repository:
-`git clone --branch=jenkins-vsftpd --depth=1 https://github.com/igor71/tomcat-jenkin`
+`git clone --branch=jenkins-vsftpd --depth=1 https://github.com/igor71/tomcat-jenkins`
 * cd to tomcat-jenkin directory
 `cd tomcat-jenkin`
 * Run following command: 
