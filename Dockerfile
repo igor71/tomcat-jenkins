@@ -71,7 +71,7 @@ RUN apt-get -q update &&\
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
     # Preventing double MOTD's mesages shown when login using SSH
-    sed -i "s/PrintMotd no/PrintMotd yes/" /etc/ssh/sshd_config && \
+    sed -i "s/UsePAM yes/UsePAM no/" /etc/ssh/sshd_config && \
     mkdir /var/run/sshd 
 
 
