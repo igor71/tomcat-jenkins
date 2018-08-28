@@ -22,7 +22,7 @@ Where:
 
 `yi/docker-jenkins:x.x` >> docker image name & tag
 
-It is posible to create & run docker using yml file:
+### It is posible to create & run docker using yml file:
 
 * Make sure docker-compose is installed:
 `sudo pip install docker-compose`
@@ -34,7 +34,7 @@ It is posible to create & run docker using yml file:
 `sudo docker-compose up -d`
 * (`-d` option will run docker container detached)
 
-In order to check docker working as expected, perform following steps:
+### In order to check docker working as expected, perform following steps:
 ```
 docker exec -it jenkins-ssh /bin/bash
 
