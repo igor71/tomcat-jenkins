@@ -1,12 +1,12 @@
 version: '3'
 services:
-  jenkins-vsftpd:
+  jenkins-vsftpd-sshd:
     build: .
-    image: yi/jenkins-ftp:0.0
-    container_name: jenkins-ftp
+    image: yi/jenkins-ftp-ssh:0.0
+    container_name: jenkins-ftp-ssh
     ports:
         - "8080:8080"
-        - "20-21:20-21"
+        - "20-22:20-22"
         - "65500-65515:65500-65515"
     volumes:
         - "/media/common/DOCKER_IMAGES/Tensorflow:/var/ftp:ro"
