@@ -5,7 +5,7 @@ Jenkins Home Directory on TomCat will be at : /root/.jenkins
 
 Run the docker image with following command:
 ```
-docker run -d --name=jenkins-ftp -p 37000:22 -p 8080:8080 -v /media:/media -v /var/run/docker.sock:/var/run/docker.sock yi/docker-jenkins:x.x
+docker run -d --name=jenkins -p 37000:22 -p 8080:8080 -v /media:/media -v /var/run/docker.sock:/var/run/docker.sock yi/docker-jenkins:x.x
 ```
 Where:
 -d - >> run docker image detached, othervise use -it
