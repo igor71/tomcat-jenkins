@@ -42,7 +42,7 @@ Where:
 
 ### In order to check docker working as expected, perform following steps:
 
-`docker exec -it jenkins-ftp /bin/bash`
+`docker exec -it jenkins-ftp-ssh /bin/bash`
 
 `./services_check.sh`
 
