@@ -26,11 +26,23 @@ Where:
 
 `yi/jenkins-ftp:x.x` >> docker image name & tag
 
-In order to check docker working as expected, perform following steps:
+### It is posible to create & run docker using yml file:
+
+* Make sure docker-compose is installed:
+`sudo pip install docker-compose`
+* Clone the repository:
+`git clone --branch=jenkins-vsftpd --depth=1 https://github.com/igor71/tomcat-jenkin`
+* cd to tomcat-jenkin directory
+`cd tomcat-jenkin`
+* Run following command: 
+`sudo docker-compose up -d`
+* (`-d` option will run docker container detached)
+
+### In order to check docker working as expected, perform following steps:
 
 `docker exec -it jenkins-ftp /bin/bash`
 
-`./init`
+`./services_check.sh`
 
 Check if ftp service running inside docker container:
 ```
