@@ -6,7 +6,7 @@ services:
     container_name: jenkins-ssh
     ports:
         - "8080:8080"
-        - "22:37000"
+        - "37000:22"
     volumes:
         - "/media:/media"
         - "/var/run/docker.sock:/var/run/docker.sock"
