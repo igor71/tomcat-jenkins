@@ -3,15 +3,15 @@ pipeline {
     stages {
         stage('Build Jenkins-FTP Docker Image') {
             steps {
-                sh 'docker build -t igor71/jenkins-tomcat-ftp:${docker_tag} .'
+                sh 'docker build -t igor71/jenkins-tomcat-ftp-ssh:${docker_tag} .'
             }
         }
 	stage('Test Jenkins-FTP Image For Mapped Ports') { 
             steps {
                 sh '''#!/bin/bash -xe
 	            echo 'Hello, Jenkins_Docker'
-                    image_id="$(docker images -q igor71/jenkins-tomcat-ftp:${docker_tag})"
-                    if [[ "$(docker images -q igor71/jenkins-tomcat-ftp:${docker_tag} 2> /dev/null)" == "$image_id" ]]; then
+                    image_id="$(docker images -q igor71/jenkins-tomcat-ftp-ssh:${docker_tag})"
+                    if [[ "$(docker images -q igor71/jenkins-tomcat-ftp-ssh:${docker_tag} 2> /dev/null)" == "$image_id" ]]; then
                        docker inspect --format='{{range $p, $conf := .Config.ExposedPorts}} {{$p}} {{end}}' $image_id
                     else
                        echo "Ports are not listenning inside docker container, check the Dockerfile!!!"
@@ -24,18 +24,18 @@ pipeline {
             steps {
                 sh '''#!/bin/bash -xe
 		        echo 'Saving Docker image into tar archive'
-                        docker save igor71/jenkins-tomcat-ftp:${docker_tag} | pv -f | cat > $WORKSPACE/igor71-jenkins-tomcat-ftp-${docker_tag}.tar
+                        docker save igor71/jenkins-tomcat-ftp-ssh:${docker_tag} | pv -f | cat > $WORKSPACE/igor71-jenkins-tomcat-ftp-ssh-${docker_tag}.tar
 			
                         echo 'Remove Original Docker Image' 
-			CURRENT_ID=$(docker images | grep -E '^igor71/jenkins-tomcat-ftp.*'${docker_tag}'' | awk -e '{print $3}')
+			CURRENT_ID=$(docker images | grep -E '^igor71/jenkins-tomcat-ftp-ssh.*'${docker_tag}'' | awk -e '{print $3}')
 			docker rmi -f $CURRENT_ID
 			
                         echo 'Loading Docker Image'
-                        pv -f $WORKSPACE/igor71-jenkins-tomcat-ftp-${docker_tag}.tar | docker load
+                        pv -f $WORKSPACE/igor71-jenkins-tomcat-ftp-ssh-${docker_tag}.tar | docker load
 			docker tag $CURRENT_ID igor71/jenkins-tomcat-ftp:${docker_tag}
                         
                         echo 'Removing Temp Archive.'  
-                        rm $WORKSPACE/igor71-jenkins-tomcat-ftp-${docker_tag}.tar
+                        rm $WORKSPACE/igor71-jenkins-tomcat-ftp-ssh-${docker_tag}.tar
                    ''' 
 		    }
 		}			   
