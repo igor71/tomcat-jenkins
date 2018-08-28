@@ -7,7 +7,7 @@ case "$(pidof sshd | wc -w)" in
 0)  echo "RESTARTING SSHD SERVICE:"
     /etc/init.d/ssh start
     ;;
-5)  echo "SSHD SERVICE RUNNING"
+*)  echo "SSHD SERVICE RUNNING"
     ;;
 esac
 
