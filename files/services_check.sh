@@ -7,7 +7,7 @@ case "$(pidof sshd | wc -w)" in
 0)  echo "RESTARTING SSHD SERVICE:"
     /etc/init.d/ssh start
     ;;
-1)  echo "SSHD SERVICE RUNNING"
+5)  echo "SSHD SERVICE RUNNING"
     ;;
 esac
 
@@ -20,5 +20,5 @@ then
     echo "TOMCAT NOT RUNNING"
           sudo /opt/tomcat/bin/startup.sh
 else
-    echo "TOMCAT RUNNING"
+    echo "TOMCAT SERVICE RUNNING"
 fi
