@@ -50,4 +50,6 @@ Check if ftp service running inside docker container:
  
  netstat -aln | grep ":21"
  
+ lsof -i | grep ftp
+ 
  ```
