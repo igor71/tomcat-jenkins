@@ -1,0 +1,14 @@
+version: '3'
+services:
+  jenkins-vsftpd:
+    build: .
+    image: yi/jenkins-ftp:0.0
+    container_name: jenkins-ftp
+    ports:
+        - "8080:8080"
+        - "20-21:20-21"
+        - "65500-65515:65500-65515"
+    volumes:
+        - "/media/common/DOCKER_IMAGES/Tensorflow:/var/ftp:ro"
+        - "/media:/media"
+        - "/var/run/docker.sock:/var/run/docker.sock"
