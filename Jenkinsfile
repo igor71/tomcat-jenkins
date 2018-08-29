@@ -1,12 +1,12 @@
 pipeline {
   agent {label 'jenkins-tomcat'}
     stages {
-        stage('Build Jenkins-FTP Docker Image') {
+        stage('Build Jenkins-FTP-SSH Docker Image') {
             steps {
                 sh 'docker build -t igor71/jenkins-tomcat-ftp-ssh:${docker_tag} .'
             }
         }
-	stage('Test Jenkins-FTP Image For Mapped Ports') { 
+	stage('Test Jenkins-FTP-SSH Image For Mapped Ports') { 
             steps {
                 sh '''#!/bin/bash -xe
 	            echo 'Hello, Jenkins_Docker'
