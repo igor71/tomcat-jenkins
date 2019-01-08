@@ -49,5 +49,19 @@ Check if ssh service running inside docker container:
  lsof -i | grep sshd
  ```
 
+### Recovery from Backup:
+```
+docker exec -it jenkins-tomcat-ssh /bin/bash
+
+cd /root/.jenkins
+
+pv /media/common/IT/jenkins_8/Server_6/jenkins_6_91.tgz | tar xpzf - -C $PWD
+
+cd ..
+
+chown -R tomcat:tomcat .jenkins
+
+http://server-6:8080/jenkins/restart
+ ```
 
 
