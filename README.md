@@ -53,13 +53,35 @@ Check if ssh service running inside docker container:
 ```
 docker exec -it jenkins-tomcat-ssh /bin/bash
 
+cd /tmp
+
+http://192.168.1.106:8080/ >> Manager App >> admin::admin >> /jenkins >> Stop
+
+rm jenkins.war
+
+curl -OSL http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+
+http://192.168.1.106:8080/ >> Manager App >> admin::admin >> /jenkins >> Undeploy
+
+http://192.168.1.106:8080/ >> Manager App >> admin::admin:
+
+   Context Path (required): /jenkins
+
+   WAR or Directory URL:/tmp/jenkins.war
+
+   Deploy
+
+   Message: OK - Deployed application at context path [/jenkins]
+
+http://192.168.1.106:8080/jenkins/ >> Manage Jenkins >> Check no messages here
+
 cd /root/.jenkins
 
+rm -rf *
+
+rm -rf .*
+
 pv /media/common/IT/jenkins_8/Server_6/jenkins_6_91.tgz | tar xpzf - -C $PWD
-
-cd ..
-
-chown -R tomcat:tomcat .jenkins
 
 http://server-6:8080/jenkins/restart
  ```
