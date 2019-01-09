@@ -83,6 +83,10 @@ rm -rf .*
 
 pv /media/common/IT/jenkins_8/Server_6/jenkins_6_91.tgz | tar xpzf - -C $PWD
 
+Note, On server-6 .jenkins folder should be owned by root!!!
+
+drwxr-x--- 14 root root 4096 Jan  9 11:06 .jenkins
+
 http://server-6:8080/jenkins/restart
  ```
 
