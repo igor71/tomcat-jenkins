@@ -99,10 +99,11 @@ RUN apt-get update && \
 
 # Fix certificate issues
 RUN apt-get install ca-certificates-java && \
+    update-ca-certificates -f && \
     apt-get clean && \
     rm -rf /tmp/* /var/tmp/* && \
     rm -rf /var/lib/apt/lists/*
-    update-ca-certificates -f;
+    
 
 # Define commonly used JAVA_HOME variable
 RUN \
