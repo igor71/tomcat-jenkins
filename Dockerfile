@@ -94,7 +94,7 @@ RUN chmod -R 777 /home/jenkins
 #################
 
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y openjdk-8-jdk
 
 # Fix certificate issues
 RUN apt-get install ca-certificates-java && \
