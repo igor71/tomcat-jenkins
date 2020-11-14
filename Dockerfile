@@ -1,6 +1,6 @@
 # Base Linux Ubuntu Image with SSH Daemon
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL MAINTAINER="Igor Rabkin<irabkin@habana.ai>"
 
