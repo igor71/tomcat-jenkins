@@ -93,22 +93,20 @@ RUN chmod -R 777 /home/jenkins
 # Install Java  #
 #################
 
-RUN \
-  apt-get --purge remove openjdk* && \
-  echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections && \
-  echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" > /etc/apt/sources.list.d/webupd8team-java-trusty.list && \
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 && \
-  apt-get update && \
-  apt-get install -y --no-install-recommends oracle-java8-installer oracle-java8-set-default && \
-  apt-get clean all && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer && \
-  apt-get install -f && \
-  rm -rf /tmp/* /var/tmp/*
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+
+# Fix certificate issues
+RUN apt-get install ca-certificates-java && \
+    apt-get clean && \
+    rm -rf /tmp/* /var/tmp/* && \
+    rm -rf /var/lib/apt/lists/*
+    update-ca-certificates -f;
 
 # Define commonly used JAVA_HOME variable
 RUN \
-  echo 'JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"' | sudo tee -a /etc/environment && \
+  echo 'JAVA_HOME="JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/"' | sudo tee -a /etc/environment && \
   echo 'export PATH=$JAVA_HOME/bin:$PATH' | sudo tee -a ~/.bashrc && \
   echo 'export CATALINA_HOME=/opt/tomcat' | sudo tee -a ~/.bashrc
 
