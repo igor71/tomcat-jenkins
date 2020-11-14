@@ -1,21 +1,21 @@
 # Base Linux Ubuntu Image with SSH Daemon
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-LABEL MAINTAINER="Igor Rabkin<igor.rabkin@xiaoyi.com>"
+LABEL MAINTAINER="Igor Rabkin<irabkin@habana.ai>"
 
 #################################################
 #  Update repositories -- we will need them all #
 #  the time, also when container is run         #
 #################################################
 
-ARG DEBIAN_FRONTEND=noninteractive 
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 
 
 #################################################
 #          Set Time Zone Asia/Jerusalem         #
-################################################# 
+#################################################
 
 ENV TZ=Asia/Jerusalem
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -53,26 +53,26 @@ RUN apt-get install -y --no-install-recommends \
     iputils-ping \
     net-tools \
     sudo \
-    lsof \ 
+    lsof \
     vsftpd && \
     apt-get install -f && \
     rm -rf /tmp/* /var/tmp/* && \
     rm -rf /var/lib/apt/lists/*
-    
-    
+
+
 ##################################
 # Installing and Configuring SSH #
 ##################################
 
 RUN apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openssh-server &&\
-    rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin 
-	
+    rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
+
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
     # Preventing double MOTD's mesages shown when login using SSH
     sed -i "s/UsePAM yes/UsePAM no/" /etc/ssh/sshd_config && \
-    mkdir /var/run/sshd 
+    mkdir /var/run/sshd
 
 
 ########################################
@@ -80,11 +80,12 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ########################################
 
 RUN useradd -m -d /home/jenkins -s /bin/bash jenkins &&\
-    echo "jenkins:jenkins" | chpasswd 
-		
+    echo "jenkins:jenkins" | chpasswd
+
 # Add the users to sudoers group
-RUN echo "jenkins  ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers
-      
+RUN sed -i '23 a jenkins  ALL=(ALL)  NOPASSWD: ALL' /etc/sudoers
+
+
 # Set full permission for jenkins folder
 RUN chmod -R 777 /home/jenkins
 
@@ -104,7 +105,7 @@ RUN \
   rm -rf /var/cache/oracle-jdk8-installer && \
   apt-get install -f && \
   rm -rf /tmp/* /var/tmp/*
- 
+
 # Define commonly used JAVA_HOME variable
 RUN \
   echo 'JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"' | sudo tee -a /etc/environment && \
@@ -120,18 +121,18 @@ RUN \
   groupadd tomcat && \
   useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat && \
   cd /opt && \
-  curl -OSL http://apache.spd.co.il/tomcat/tomcat-8/v8.5.33/bin/apache-tomcat-8.5.33.tar.gz && \
-  tar -xzf apache-tomcat-8.5.33.tar.gz && \
-  mv apache-tomcat-8.5.33 tomcat && \
-  rm apache-tomcat-8.5.33.tar.gz && \
+  curl -OSL http://apache.spd.co.il/tomcat/tomcat-8/v8.5.59/bin/apache-tomcat-8.5.59.tar.gz && \
+  tar -xzf apache-tomcat-8.5.59.tar.gz && \
+  mv apache-tomcat-8.5.59 tomcat && \
+  rm apache-tomcat-8.5.59.tar.gz && \
   chown -hR tomcat:tomcat tomcat && \
-  chmod +x /opt/tomcat/bin 
- 
-COPY files/tomcat.service /etc/systemd/system/ 
-COPY files/tomcat-users.xml /opt/tomcat/conf/  
+  chmod +x /opt/tomcat/bin
+
+COPY files/tomcat.service /etc/systemd/system/
+COPY files/tomcat-users.xml /opt/tomcat/conf/
 COPY files/server.xml /opt/tomcat/conf/
-COPY files/context.xml /opt/tomcat/conf/ 
-COPY files/manager/META-INF/context.xml /opt/tomcat/webapps/manager/META-INF/ 
+COPY files/context.xml /opt/tomcat/conf/
+COPY files/manager/META-INF/context.xml /opt/tomcat/webapps/manager/META-INF/
 COPY files/host-manager/META-INF/context.xml /opt/tomcat/webapps/host-manager/META-INF/
 COPY files/branch_list.groovy /root/.jenkins/
 
@@ -146,9 +147,9 @@ RUN \
   chmod 640 /opt/tomcat/webapps/manager/META-INF/context.xml && \
   chown tomcat:tomcat /opt/tomcat/webapps/manager/META-INF/context.xml && \
   chmod 640 /opt/tomcat/webapps/host-manager/META-INF/context.xml && \
-  chown tomcat:tomcat /opt/tomcat/webapps/host-manager/META-INF/context.xml 
+  chown tomcat:tomcat /opt/tomcat/webapps/host-manager/META-INF/context.xml
 
-	 
+
 #################################
 # Prepare Jenkins Installation. #
 #################################
@@ -157,18 +158,18 @@ RUN \
   cd /tmp && \
   curl -OSL http://mirrors.jenkins.io/war-stable/latest/jenkins.war && \
   chmod u+x jenkins.war
-  
-  
+
+
 #################################
 #    Configure vsftpd server.   #
-#################################  
+#################################
 
 RUN cp /etc/vsftpd.conf /etc/vsftpd.conf.orig && \
     rm /etc/vsftpd.conf && \
     mkdir -p /var/ftp && \
     chown nobody:nogroup /var/ftp && \
     mkdir -p /var/run/vsftpd/empty
-     
+
 COPY files/init /
 RUN chmod u+x /init
 COPY files/services_check.sh /
@@ -176,7 +177,7 @@ RUN chmod u+x /services_check.sh
 
 VOLUME ["/var/ftp"]
 
- 
+
 ###############################
 #  Expose FTP & TomCat Ports  #
 ###############################
@@ -185,10 +186,6 @@ EXPOSE 20-22
 EXPOSE 65500-65515
 EXPOSE 8080
 
-
-#########################################
-# Add Welcome Message With Instructions #
-#########################################
 
 #########################################
 # Add Welcome Message With Instructions #
@@ -207,7 +204,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/issue && cat /etc/motd' \
 ||||||||||||||||||||||||||||||||||||||||||||||||||\n\
 \n "\
 	> /etc/motd
-	
+
 
 ###############################################################
 #      Configure And StartUp VSFTPD, SSH & TomCat Services    #
