@@ -1,8 +1,14 @@
 version: '3'
 services:
   jenkins-vsftpd-sshd:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
     image: yi/jenkins-ftp-ssh:0.0
+    privileged: true
     container_name: jenkins-ftp-ssh
     ports:
         - "8080:8080"
@@ -10,6 +16,13 @@ services:
         - "20-21:20-21"
         - "65500-65515:65500-65515"
     volumes:
-        - "/media/common/DOCKER_IMAGES/Tensorflow:/var/ftp:ro"
-        - "/media:/media"
+        - "/software/releases:/var/ftp:ro"
+        - "~/.ssh/hls1-bmc:/root/.ssh/hls1-bmc:ro"
+        - "~/.ssh/hls1-bmc.pub:/root/.ssh/hls1-bmc.pub:ro"
+        - "~/.ssh/kvm-srv:/root/.ssh/kvm-srv:ro"
+        - "~/.ssh/kvm-srv.pub:/root/.ssh/kvm-srv.pub:ro"
+        - "~/.ssh/vm-srv:/root/.ssh/vm-srv:ro"
+        - "~/.ssh/vm-srv.pub:/root/.ssh/vm-srv.pub:ro"
+        - "/software:/software"
+        - "/tools:/tools"
         - "/var/run/docker.sock:/var/run/docker.sock"
