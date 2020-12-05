@@ -1,11 +1,25 @@
 # tomcat-jenkins-ftp-ssh
-TomCat Based, FTP & SSH Enabled Jenkins Docker Image
+TomCat Based, FTP & SSH Enabled Jenkins Docker Image ---- Using Host ssh-keys inside Docker container
 
 Jenkins Home Directory on TomCat will be at : `/var/lib/jenkins`
 
+Jenkins Job will run under `root` user account
+
+Build the docker as following:
+```
+cd /tmp
+git clone --branch=app-jenkins-ftp-ssh --depth=1 https://github.com/igor71/tomcat-jenkins
+cd tomcat-jenkins
+
+
+
+
+```
+
+
 Run the docker image with following command:
 ```
-docker run -d --name=jenkins-ftp-ssh -p 8080:8080 -p 21:21 -p 37000:22 -p 65500-65515:65500-65515 -v /media/common/DOCKER_IMAGES/Tensorflow:/var/ftp:ro -v /media:/media -v /var/run/docker.sock:/var/run/docker.sock yi/jenkins-ftp-ssh:x.x
+docker run -d --name=jenkins-ftp-ssh -p 8080:8080 -p 21:21 -p 37000:22 -p 65500-65515:65500-65515 -v /software/releases:/var/ftp:ro -v /software:/software -v /var/run/docker.sock:/var/run/docker.sock yi/jenkins-ftp-ssh:0.0
 ```
 Where:
 `-d` - >> run docker image detached, othervise use `-it` option
@@ -20,13 +34,13 @@ Where:
 
 `-p 8080:8080` >> redirect default tomcat http port
 
-`-v /media:/media` >> make media folder inside host available in docker container
+`-v /software:/software` >> make media folder inside host available in docker container
 
 `-v /var/run/docker.sock:/var/run/docker.sock` >> mount the Docker socket as a volume allowing Jenkins utilize host Docker installation for spinning up containers in builds and building images
 
-`-v /media/common/DOCKER_IMAGES/Tensorflow:/var/ftp:ro`  >> Mount FTP share folder
+`-v /software/releases:/var/ftp:ro`  >> Mount FTP share folder
 
-`yi/jenkins-ftp-ssh:x.x` >> docker image name & tag
+`yi/jenkins-ftp-ssh:0.0` >> docker image name & tag
 
 ### It is posible to create & run docker using yml file:
 
