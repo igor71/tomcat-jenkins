@@ -8,7 +8,7 @@ Jenkins Job will run under `root` user account
 Build the docker as following:
 ```
 cd /tmp
-git clone --branch=app-jenkins-ftp-ssh --depth=1 https://github.com/igor71/tomcat-jenkins
+git clone --branch=app-jenkins-ftp-ssh-keys --depth=1 https://github.com/igor71/tomcat-jenkins
 cd tomcat-jenkins
 docker build -t igor71/jenkins-tomcat-ftp-ssh:0.0
 ```
@@ -44,12 +44,14 @@ Where:
 * Make sure docker-compose is installed:
 `sudo pip install docker-compose`
 * Clone the repository:
-`git clone --branch=jenkins-vsftpd-ssh --depth=1 https://github.com/igor71/tomcat-jenkins`
+`git clone --branch=jenkins-vsftpd-ssh-keys --depth=1 https://github.com/igor71/tomcat-jenkins`
 * cd to tomcat-jenkin directory
 `cd tomcat-jenkins`
 * Run following command: 
 `sudo docker-compose up -d`
 * (`-d` option will run docker container detached)
+* docker will map /home/$USER/.ssh relevant ssh keys as read only into the docker container.
+All explanation are here: https://jtreminio.com/blog/running-docker-containers-as-current-host-user/
 
 ### In order to check docker working as expected, perform following steps:
 
