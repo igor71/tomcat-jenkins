@@ -83,7 +83,7 @@ ARG USER_ID
 ARG GROUP_ID
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then echo "$USER_ID"; fi
 RUN groupadd -g ${GROUP_ID} jenkins
-RUN useradd -m -d /home/jenkins -s /bin/bash -u ${USER_ID} -g ${GROUP_ID} jenkins &&\
+RUN useradd -m -d /home/jenkins -s /bin/bash -l -u ${USER_ID} -g ${GROUP_ID} jenkins &&\
     echo "jenkins:jenkins" | chpasswd
 
 # Add the users to sudoers group
