@@ -10,16 +10,13 @@ Build the docker as following:
 cd /tmp
 git clone --branch=app-jenkins-ftp-ssh --depth=1 https://github.com/igor71/tomcat-jenkins
 cd tomcat-jenkins
-
-
-
-
+docker build -t igor71/jenkins-tomcat-ftp-ssh:0.0
 ```
 
 
 Run the docker image with following command:
 ```
-docker run -d --name=jenkins-ftp-ssh -p 8080:8080 -p 21:21 -p 37000:22 -p 65500-65515:65500-65515 -v /software/releases:/var/ftp:ro -v /software:/software -v /var/run/docker.sock:/var/run/docker.sock yi/jenkins-ftp-ssh:0.0
+docker run -d --name=jenkins-ftp-ssh -p 8080:8080 -p 21:21 -p 37000:22 -p 65500-65515:65500-65515 -v /software/releases:/var/ftp:ro -v /software:/software -v /var/run/docker.sock:/var/run/docker.sock igor71/jenkins-ftp-ssh:0.0
 ```
 Where:
 `-d` - >> run docker image detached, othervise use `-it` option
