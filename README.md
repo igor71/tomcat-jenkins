@@ -51,6 +51,7 @@ Where:
 `sudo docker-compose up -d`
 * (`-d` option will run docker container detached)
 * docker will map /home/$USER/.ssh relevant ssh keys as read only into the docker container.
+* Mapping real user UID & GUID into docker container will make possible root user inside docker container ssh keys proper usage
 All explanation are here: https://jtreminio.com/blog/running-docker-containers-as-current-host-user/
 
 ### In order to check docker working as expected, perform following steps:
