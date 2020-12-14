@@ -8,7 +8,7 @@ Jenkins Job will run under `root` user account
 Build the docker as following:
 ```
 cd /tmp
-git clone --branch=app-jenkins-ftp-ssh-keys --depth=1 https://github.com/igor71/tomcat-jenkins
+git clone --branch=tomcat-jenkins-ftp-ssh-keys --depth=1 https://github.com/igor71/tomcat-jenkins
 cd tomcat-jenkins
 docker build -t igor71/jenkins-tomcat-ftp-ssh:0.0
 ```
