@@ -1,4 +1,4 @@
-# tomcat-jenkins-ftp-ssh
+# tomcat-jenkins-ftp-ssh-keys
 TomCat Based, FTP & SSH Enabled Jenkins Docker Image ---- Using Host ssh-keys inside Docker container
 
 Jenkins Home Directory on TomCat will be at : `/var/lib/jenkins`
