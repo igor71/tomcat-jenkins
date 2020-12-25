@@ -23,6 +23,8 @@ services:
         - "~/.ssh/kvm-srv.pub:/root/.ssh/kvm-srv.pub:ro"
         - "~/.ssh/vm-srv:/root/.ssh/vm-srv:ro"
         - "~/.ssh/vm-srv.pub:/root/.ssh/vm-srv.pub:ro"
+        - "~/.ssh/hls1-vm-jenkins:/root/.ssh/hls1-vm-jenkins:ro"
+        - "~/.ssh/hls1-vm-jenkins.pub:/root/.ssh/hls1-vm-jenkins.pub:ro"
         - "/software:/software"
         - "/tools:/tools"
         - "/var/run/docker.sock:/var/run/docker.sock"
