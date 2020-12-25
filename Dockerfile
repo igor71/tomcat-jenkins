@@ -53,6 +53,7 @@ RUN apt-get install -y --no-install-recommends \
     iputils-ping \
     net-tools \
     ipmitool \
+    netcat \
     sudo \
     lsof \
     vsftpd && \
