@@ -41,6 +41,7 @@ ENV LANGUAGE en_US.UTF-8
 RUN apt-get install -y --no-install-recommends \
     curl \
     wget \
+    rsync \
     git \
     htop \
     vim \
@@ -164,8 +165,15 @@ RUN \
   chown tomcat:tomcat /opt/tomcat/webapps/manager/META-INF/context.xml && \
   chmod 640 /opt/tomcat/webapps/host-manager/META-INF/context.xml && \
   chown tomcat:tomcat /opt/tomcat/webapps/host-manager/META-INF/context.xml
+  
 
+##########################################################
+# Prevent TTY Errors Wnen Running Job Under ROOT Acoount #
+##########################################################
 
+RUN sed -i -e 's/mesg n .*true/tty -s \&\& mesg n/g' /root/.profile
+  
+  
 #################################
 # Prepare Jenkins Installation. #
 #################################
