@@ -53,8 +53,8 @@ RUN apt-get install -y --no-install-recommends \
     vsftpd \
     iputils-ping \
     net-tools \
-    ipmitool \
     netcat \
+    ipmitool \
     sudo \
     lsof \
     vsftpd && \
@@ -86,7 +86,7 @@ ARG USER_ID
 ARG GROUP_ID
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then echo "$USER_ID"; fi
 RUN groupadd -g ${GROUP_ID} jenkins
-RUN useradd -m -d /home/jenkins -s /bin/bash -l -u ${USER_ID} -g ${GROUP_ID} jenkins &&\
+RUN useradd -m -d /home/jenkins -s /bin/bash -u ${USER_ID} -g ${GROUP_ID} jenkins &&\
     echo "jenkins:jenkins" | chpasswd
 
 # Add the users to sudoers group
@@ -115,7 +115,11 @@ RUN mkdir /software && \
 RUN apt-get update && \
     apt-get install -y openjdk-8-jdk
 
-# Fix certificate issues
+
+##########################
+# Fix certificate issues #
+##########################
+
 RUN apt-get install ca-certificates-java && \
     update-ca-certificates -f && \
     apt-get clean && \
@@ -123,7 +127,10 @@ RUN apt-get install ca-certificates-java && \
     rm -rf /var/lib/apt/lists/*
 
 
-# Define commonly used JAVA_HOME variable
+###########################################
+# Define commonly used JAVA_HOME variable #
+###########################################
+
 RUN \
   echo 'JAVA_HOME="JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/"' | sudo tee -a /etc/environment && \
   echo 'export PATH=$JAVA_HOME/bin:$PATH' | sudo tee -a ~/.bashrc && \
@@ -134,14 +141,15 @@ RUN \
 # Install & Configure TomCat  #
 ###############################
 
+ARG TOMCAT_VER
 RUN \
   groupadd tomcat && \
   useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat && \
   cd /opt && \
-  curl -OSL http://apache.spd.co.il/tomcat/tomcat-8/v8.5.59/bin/apache-tomcat-8.5.59.tar.gz && \
-  tar -xzf apache-tomcat-8.5.59.tar.gz && \
-  mv apache-tomcat-8.5.59 tomcat && \
-  rm apache-tomcat-8.5.59.tar.gz && \
+  curl -OSL http://apache.spd.co.il/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz && \
+  tar -xzf apache-tomcat-${TOMCAT_VER}.tar.gz && \
+  mv apache-tomcat-${TOMCAT_VER} tomcat && \
+  rm apache-tomcat-${TOMCAT_VER}.tar.gz && \
   chown -hR tomcat:tomcat tomcat && \
   chmod +x /opt/tomcat/bin
 
@@ -165,15 +173,15 @@ RUN \
   chown tomcat:tomcat /opt/tomcat/webapps/manager/META-INF/context.xml && \
   chmod 640 /opt/tomcat/webapps/host-manager/META-INF/context.xml && \
   chown tomcat:tomcat /opt/tomcat/webapps/host-manager/META-INF/context.xml
-  
+
 
 ##########################################################
 # Prevent TTY Errors Wnen Running Job Under ROOT Acoount #
 ##########################################################
 
 RUN sed -i -e 's/mesg n .*true/tty -s \&\& mesg n/g' /root/.profile
-  
-  
+
+
 #################################
 # Prepare Jenkins Installation. #
 #################################
@@ -217,8 +225,8 @@ EXPOSE 8080
 
 
 RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
-	>> /etc/bash.bashrc \
-	; echo "\
+        >> /etc/bash.bashrc \
+        ; echo "\
 ||||||||||||||||||||||||||||||||||||||||||||||||||\n\
 |                                                |\n\
 | Ubuntu Based Docker Container                  |\n\
@@ -227,7 +235,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
 |                                                |\n\
 ||||||||||||||||||||||||||||||||||||||||||||||||||\n\
 \n "\
-	> /etc/motd
+        > /etc/motd
 
 
 ###############################################################
