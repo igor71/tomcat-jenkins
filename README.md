@@ -42,12 +42,11 @@ Where:
 ### It is posible to create & run docker using yml file:
 
 * Make sure docker-compose is installed:
-
-`sudo curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose`
-
-`sudo chmod +x /usr/local/bin/docker-compose`
-
-`docker-compose --version`
+```
+sudo curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```
 
 * Clone the repository:
 `git clone --branch=jenkins-vsftpd-ssh-keys --depth=1 https://github.com/igor71/tomcat-jenkins`
