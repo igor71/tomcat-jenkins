@@ -7,6 +7,7 @@ services:
       args:
         USER_ID: ${USER_ID:-0}
         GROUP_ID: ${GROUP_ID:-0}
+        TOMCAT_VER: 8.5.61
     image: yi/jenkins-ftp-ssh:0.0
     privileged: true
     container_name: jenkins-ftp-ssh
