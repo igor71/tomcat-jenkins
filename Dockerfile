@@ -10,7 +10,7 @@ LABEL MAINTAINER="Igor Rabkin<irabkin@habana.ai>"
 #################################################
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update
+RUN apt-get update --fix-missing
 
 
 #################################################
